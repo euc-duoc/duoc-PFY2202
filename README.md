@@ -2,4 +2,4 @@
 
 ### 1. Proyecto "Gestión de procesos" (React)
 
-[Enlace a proyecto.](/ejemplo-procesos/)
+[Enlace a proyecto](/ejemplo-procesos/)
