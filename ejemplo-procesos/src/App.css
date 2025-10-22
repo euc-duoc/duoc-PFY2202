@@ -1,0 +1,59 @@
+.App {
+  font-family: Arial, sans-serif;
+}
+
+.App-header {
+  background-color: #282c34;
+  padding: 20px;
+  color: white;
+}
+
+.content {
+  display: flex;
+  padding: 20px;
+  min-height: 400px;
+}
+
+.side-menu {
+  width: 250px;
+  padding: 20px;
+  background-color: #f4f4f4;
+  text-align: left;
+}
+
+.side-menu ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.side-menu ul li {
+  margin-bottom: 10px;
+}
+
+.side-menu ul li a {
+  color: #000;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.side-menu ul li a:hover {
+  text-decoration: underline;
+}
+
+.book-list {
+  flex-grow: 1;
+  padding: 20px;
+}
+
+.book {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+  width: 250px;
+}
+
+footer {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #f1f1f1;
+}
