@@ -33,7 +33,7 @@ export default function ListaProcesos({listaProcesos}) {
           <ItemProceso key={proceso.id} proceso={proceso} />
         ))        
       ) : (
-        <tr><th colspan="4">No hay procesos registrados</th></tr>
+        <tr><td colspan="5">No hay procesos registrados</td></tr>
       )}
         </tbody>
       </table> 
