@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import styles from './ControlNumero.module.css';
 
 export default function ControlNumero({actualizarPadre}) {
     const [numero, setNumero] = useState(0);
@@ -30,13 +31,17 @@ export default function ControlNumero({actualizarPadre}) {
     return (
         <div className="col-2">
             <div className="row">
-                <div class="col-2"><button onClick={disminuirNumero} class="botonCambio">-</button></div>
+                <div class="col-2">
+                    <button className={styles.botonCambio} onClick={disminuirNumero} class="botonCambio">-</button>
+                </div>
             </div>
             <div className="row">
-                <div class="col-2"><div class="numero">{numero}</div></div>
+                <div class="col-2"><div className={styles.numero}>{numero}</div></div>
             </div>
             <div className="row">
-                <div class="col-2"><button onClick={aumentarNumero} class="botonCambio">+</button></div>
+                <div class="col-2">
+                    <button className={styles.botonCambio} onClick={aumentarNumero} class="botonCambio">+</button>
+                </div>
             </div>
         </div>
     );
