@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import './App.css';
 import ListaProcesos from './listaProcesos/ListaProcesos';
 import Proceso from './proceso/Proceso';
+import NuevoProceso from './proceso/NuevoProceso';
+import { headerSeccion } from './Common';
 
 function App() {
   const [listaProcesos, setListaProcesos] = useState([
@@ -25,16 +27,17 @@ function App() {
     <Router>
       <div className="App">
         <header className="App-header">
-          <h1>Gestión de procesos</h1>
+          <h1 className="mb-4 font-extrabold tracking-tight text-5xl text-white">Gestión de procesos</h1>
         </header>
 
         <div className="content">
           {/* Menú lateral */}
           <nav className="side-menu">
-            <h2>Menú</h2>
+            <h2 className="text-3xl mb-4 font-bold">Menú</h2>
             <ul>
               <li><Link to="/">Inicio</Link></li>
               <li><Link to="/procesos">Procesos registrados</Link></li>
+              <li><Link to="/nuevo-proceso">Agregar proceso</Link></li>
             </ul>
           </nav>
 
@@ -43,14 +46,26 @@ function App() {
             <Routes>
               <Route path="/procesos" element={<ListaProcesos listaProcesos={listaProcesos}/>} />
               <Route path="/proceso/:id" element={
-                <Proceso listaProcesos={listaProcesos} setListaProcesos={setListaProcesos} />
+                <Proceso 
+                  listaProcesos={listaProcesos} 
+                  setListaProcesos={setListaProcesos} 
+                />
               }/>
-              <Route path="/" element={<><h2>Inicio</h2><p>Esta es la página inicial.</p></>} />
+              <Route path="/nuevo-proceso" element={
+                <NuevoProceso 
+                  listaProcesos={listaProcesos} 
+                  setListaProcesos={setListaProcesos} 
+                />
+              }/>
+              <Route path="/" element={<>
+                {headerSeccion("Inicio")}
+                <p>Esta es la página inicial.</p></>} 
+              />
             </Routes>
           </main>
         </div>
 
-        <footer>
+        <footer className="text-center italic">
           <p>© 2025 Todos los derechos reservados.</p>
         </footer>
       </div>

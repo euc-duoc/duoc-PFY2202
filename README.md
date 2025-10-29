@@ -12,3 +12,8 @@ Instalación general:
 > cd mi-app
 > npm start
 ```
+### 2. Proyecto React "desce cero"
+
+[Enlace a proyecto](/ejemplo-react/)
+
+Ejemplo que muestra gradualmente (ver commits) los resultados de transformar un prototipo HTML a un frontend en React. Considera uso de estados, manejo de componentes, css locales y routing.

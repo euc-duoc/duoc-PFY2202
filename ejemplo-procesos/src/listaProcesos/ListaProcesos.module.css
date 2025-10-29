@@ -4,8 +4,8 @@ table {
     width: 100%;
 }
 
-th, td {
-    border: 1px solid grey;
+tr {
+    border: 1px solid lightgray;
     text-align: center;
 }
 
