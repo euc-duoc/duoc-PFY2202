@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+        <title>Mi catálogo de Rock Progresivo</title>
+    </head>
+    <body>
+        <div class="flex flex-col h-screen justify-between">
+            <header class="text-4xl pb-10 font-extrabold p-5 bg-blue-400">Discos de Rock Progresivo</header>
+            <main class="flex mb-auto">
+                <div class="w-[200px] p-5 mb-10">
+                    <h1 class="text-lg font-bold mb-5">Menú</h1>
+                    <ul>
+                        <li class="text-gray-500 font-bold"><a href="./index.html">Ver catálogo</a></li>
+                        <li class="text-gray-500 font-bold"><a href="./favs.html">Ver favoritos</a></li>
+                    </ul>
+                </div>
+                <div class="w-2/3 p-5">
+                    <h1 class="text-lg font-bold mb-5">Catálogo</h1>
+
+                    <div class="flex flex-wrap">                    
+                        <div class="flex flex-col w-[200px] border-1 rounded-sm p-2 border-gray-300 m-5 text-center">
+                            <img src="./img/cover-01.jpg" />
+                            <p class="font-bold">Deep Purple</p>
+                            <p class="text-sm">Machine Head</p>
+                            <p class="italic text-sm">10 disponibles</p>
+                            <button class="mt-2 bg-blue-500 hover:bg-blue-900 font-bold text-white rounded-lg p-1">Favorito</button>
+                        </div>
+
+                        <div class="flex flex-col w-[200px] border-1 rounded-sm p-2 border-gray-300 m-5 text-center">
+                            <img src="./img/cover-02.jpg" />
+                            <p class="font-bold">King Crimson</p>
+                            <p class="text-sm">In the Court of the Crimson King</p>
+                            <p class="italic text-sm">5 disponibles</p>
+                            <button class="mt-2 bg-blue-500 hover:bg-blue-900 font-bold text-white rounded-lg p-1">Favorito</button>
+                        </div>
+
+                        <div class="flex flex-col w-[200px] border-1 rounded-sm p-2 border-gray-300 m-5 text-center">
+                            <img src="./img/cover-03.jpg" />
+                            <p class="font-bold">Pink Floyd</p>
+                            <p class="text-sm">The Dark Side of the Moon</p>
+                            <p class="italic text-sm">3 disponibles</p>
+                            <button class="mt-2 bg-blue-500 hover:bg-blue-900 font-bold text-white rounded-lg p-1">Favorito</button>
+                        </div>
+
+                        <div class="flex flex-col w-[200px] border-1 rounded-sm p-2 border-gray-300 m-5 text-center">
+                            <img src="./img/cover-04.jpg" />
+                            <p class="font-bold">Camel</p>
+                            <p class="text-sm">Mirage</p>
+                            <p class="italic text-sm">20 disponibles</p>
+                            <button class="mt-2 bg-blue-500 hover:bg-blue-900 font-bold text-white rounded-lg p-1">Favorito</button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <footer class="p-5 bg-black text-white font-bold">Nombre empresa</footer>
+        </div>
+    </body>
+</html>
