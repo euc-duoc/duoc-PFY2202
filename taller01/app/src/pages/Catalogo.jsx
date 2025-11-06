@@ -1,13 +1,38 @@
 import TarjetaDisco from "../components/TarjetaDisco";
+import { useState } from 'react'
 
 function Catalogo({catalogo, favoritos, setFavoritos}) {
+    const [catalogoFiltrado, setCatalogoFiltrado] = useState(catalogo);
+
+    function aplicarFiltro(e) {
+        let texto = e.target.value;
+
+        if(texto == "") {
+            setCatalogoFiltrado(catalogo);
+        }
+        else {
+            const copiaCatalogoFiltrado = catalogoFiltrado.filter(disco => disco.nombreGrupo.startsWith(texto));
+            setCatalogoFiltrado(copiaCatalogoFiltrado);
+        }
+    }
+
     return (
         <>
             <h1 class="text-lg font-bold mb-5">Catálogo</h1>
 
+            <div class="flex">
+                <div class="w-1/3">Artista:</div>
+                <div class="w-2/3">
+                    <input
+                        onChange={aplicarFiltro} 
+                        class="bg-gray-100"
+                    />
+                </div>
+            </div>
+
             <div class="flex flex-wrap">
-                {catalogo.length > 0 ? (        
-                    catalogo.map((disco) => {
+                {catalogoFiltrado.length > 0 ? (        
+                    catalogoFiltrado.map((disco) => {
                         let fav = false;
 
                         if(favoritos.includes(disco.id))

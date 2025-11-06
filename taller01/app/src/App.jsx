@@ -1,10 +1,10 @@
 import { useState } from 'react'
-import Catalogo from "./pages/Catalogo"
 import Menu from './components/Menu';
+import AppRoutes from './components/AppRoutes';
 
 function App() {
   const [favoritos, setFavoritos] = useState([]);
-  const [catalogo] = useState([
+  const [catalogo, setCatalogo] = useState([
     {
       id: 1,
       img: "img/cover-01.jpg",
@@ -48,9 +48,10 @@ function App() {
       <main class="flex mb-auto">
         <Menu />
         <div class="w-2/3 p-5">
-          <Catalogo 
-            catalogo={catalogo} 
-            favoritos={favoritos} 
+          <AppRoutes 
+            catalogo={catalogo}
+            setCatalogo={setCatalogo}
+            favoritos={favoritos}
             setFavoritos={setFavoritos}
           />
         </div>
