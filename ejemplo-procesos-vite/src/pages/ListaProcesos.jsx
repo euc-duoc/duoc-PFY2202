@@ -21,7 +21,21 @@ function ItemProceso({proceso}) {
   )
 }
 
-function ListaProcesos({listaProcesos}) {
+function Contenido({listaProcesos, loading}) {
+  if(loading) {
+    return <tr><td colSpan="5">Cargando procesos...</td></tr>
+  }
+  else if(listaProcesos.length == 0) {
+    return <tr><td colSpan="5">No hay procesos registrados.</td></tr>
+  }
+  else {
+    return listaProcesos.map((proceso, i) => (
+      <ItemProceso key={proceso.id} proceso={proceso} />
+    )) 
+  }
+}
+
+function ListaProcesos({listaProcesos, loading}) {
   return (
     <div>
       <HeaderSeccion texto={"Procesos registrados"} />
@@ -35,14 +49,8 @@ function ListaProcesos({listaProcesos}) {
               <th>Acciones</th>
           </tr>
         </thead>
-        <tbody>      
-      {listaProcesos.length > 0 ? (        
-        listaProcesos.map((proceso, i) => (
-          <ItemProceso key={proceso.id} proceso={proceso} />
-        ))        
-      ) : (
-        <tr><td colspan="5">No hay procesos registrados</td></tr>
-      )}
+        <tbody>
+          <Contenido listaProcesos={listaProcesos} loading={loading} />
         </tbody>
       </table> 
     </div>

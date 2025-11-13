@@ -1,3 +1,10 @@
+# Instalación MSW
+
+```bash
+npm install msw --save-dev
+npx msw init ./public
+```
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
