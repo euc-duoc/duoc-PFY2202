@@ -2,33 +2,61 @@ import { useState, useEffect, StrictMode } from 'react'
 import { Link } from 'react-router-dom';
 import './App.css'
 import AppRoutes from './AppRoutes';
+import { gql } from '@apollo/client';
+import { useQuery } from '@apollo/client/react';
+
+const USE_GRAPHQL = true;
+
+const GQL_OBTENER_PROCESOS = gql`
+  query ObtenerProcesos {
+    procesos {
+      id
+      nombre
+      desc
+      tipo
+    }
+  }
+`;
 
 function App() {
   const [listaProcesos, setListaProcesos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    setLoading(true);
-    setError(null);
+  if(USE_GRAPHQL) {
+    const { loading, error, data } = useQuery(GQL_OBTENER_PROCESOS)
 
-    fetch('api/procesos').
-      then((resp) => {
+    useEffect(() => {
+      setLoading(loading);
+      setError(error);
 
-        if(!resp.ok)
-            throw new Error(resp.status + " - " + resp.statusText);
+      if(data)
+        setListaProcesos(data.procesos);
+    }, [data, loading, error]);
+  }
+  else {
+    useEffect(() => {      
+      setLoading(true);
+      setError(null);
 
-        return resp.json();
-      }).
-      then((data) => {
-        setListaProcesos(data);
-        setLoading(false);
-      }).
-      catch((err) => {
-        setError(err.message);
-        setLoading(false);
-      });
-  }, []);
+      fetch('api/procesos').
+        then((resp) => {
+
+          if(!resp.ok)
+              throw new Error(resp.status + " - " + resp.statusText);
+
+          return resp.json();
+        }).
+        then((data) => {
+          setListaProcesos(data);
+          setLoading(false);
+        }).
+        catch((err) => {
+          setError(err.message);
+          setLoading(false);
+        });
+    }, []);
+  }  
 
   return (
     <StrictMode>

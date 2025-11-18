@@ -1,3 +1,13 @@
+# Instalación componentes GraphQL
+
+```bash
+npm install @apollo/client graphql
+```
+
+**Notas**: 
+* Se recomienda reinstalar paquetes NPM junto con esto.
+* Guiarse por https://www.apollographql.com/docs/react/get-started
+
 # Instalación MSW
 
 ```bash

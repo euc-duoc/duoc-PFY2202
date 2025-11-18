@@ -1,6 +1,6 @@
-import { http, HttpResponse, delay } from 'msw';
+import { http, HttpResponse, delay, graphql } from 'msw';
 
-const data = [
+const procesos = [
     {
         id: 1, nombre: "Planificación estratégica",
         desc: "Definición de prioridades a largo plazo.",
@@ -19,6 +19,10 @@ const data = [
 export const handlers = [
     http.get("/api/procesos", async (req) => {
         await delay(2000);
-        return HttpResponse.json(data);
+        return HttpResponse.json(procesos);
+    }),
+    graphql.query('ObtenerProcesos', async ({vars}) => {
+        await delay(2000);
+        return HttpResponse.json({ data: { procesos } });
     })
 ];
