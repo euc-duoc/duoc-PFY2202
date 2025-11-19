@@ -1,7 +1,31 @@
 import TarjetaDisco from "../components/TarjetaDisco";
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { gql } from '@apollo/client';
+import { useQuery } from '@apollo/client/react';
 
-function Catalogo({catalogo, favoritos, setFavoritos, loading, error}) {
+const GQL_OBTENER_DISCOS = gql`
+  query ObtenerDiscos {
+    discos {
+        id
+        img
+        nombreGrupo
+        nombreDisco
+        stock
+    }
+  }
+`;
+
+function Catalogo(/*{catalogo, favoritos, setFavoritos, loading, error}*/) {
+    const [catalogo, setCatalogo] = useState([]);
+    const { loading, error, data } = useQuery(GQL_OBTENER_DISCOS, {
+        fetchPolicy: 'network-only'
+    });
+
+    useEffect(() => {
+        if(data)
+            setCatalogo(data.discos);
+    }, [error, data]);
+
     let Contenido = () => {
         if(loading) {
             return <p>Cargando catálogo...</p>
@@ -15,8 +39,8 @@ function Catalogo({catalogo, favoritos, setFavoritos, loading, error}) {
                     catalogo.map((disco) => {
                         let fav = false;
 
-                        if(favoritos.includes(disco.id))
-                            fav = true;
+                        /*if(favoritos.includes(disco.id))
+                            fav = true;*/
 
                         return (
                             <TarjetaDisco 
@@ -25,8 +49,8 @@ function Catalogo({catalogo, favoritos, setFavoritos, loading, error}) {
                                 nombreGrupo={disco.nombreGrupo}
                                 nombreDisco={disco.nombreDisco}
                                 stock={disco.stock}
-                                favoritos={favoritos}
-                                setFavoritos={setFavoritos}
+                                /*favoritos={favoritos}
+                                setFavoritos={setFavoritos}*/
                             />
                         );
                     })        

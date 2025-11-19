@@ -42,7 +42,11 @@ export const handlers = [
     http.get("/api/discos", async (req) => {
         await delay(3000);
         return HttpResponse.json(discos);
-    })
+    }),
+    graphql.query('ObtenerDiscos', async ({ variables }) => {
+        await delay(2000);
+        return HttpResponse.json({ data: { discos } });
+    }),
     /*
     http.get("/api/procesos", async (req) => {
         await delay(2000);

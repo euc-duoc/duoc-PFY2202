@@ -2,24 +2,24 @@ import { Routes, Route } from 'react-router-dom';
 import Favoritos from '../pages/Favoritos';
 import Catalogo from '../pages/Catalogo';
 
-function AppRoutes({catalogo, setCatalogo, favoritos, setFavoritos, loading, error}) {
+function AppRoutes(/*{catalogo, setCatalogo, favoritos, setFavoritos, loading, error}*/) {
   return (
     <Routes>
       <Route path="/favoritos" element={
         <Favoritos
-          catalogo={catalogo}
+          /*catalogo={catalogo}
           setCatalogo={setCatalogo}
           favoritos={favoritos}
-          setFavoritos={setFavoritos}
+          setFavoritos={setFavoritos}*/
         />
       }/>
       <Route path="/" element={
         <Catalogo
-          catalogo={catalogo} 
+          /*catalogo={catalogo} 
           favoritos={favoritos} 
           setFavoritos={setFavoritos}
           loading={loading}
-          error={error}
+          error={error}*/
         />
       }/>
     </Routes>

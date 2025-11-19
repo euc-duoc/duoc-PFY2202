@@ -3,12 +3,12 @@ import Menu from './components/Menu';
 import AppRoutes from './components/AppRoutes';
 
 function App() {
-  const [favoritos, setFavoritos] = useState([]);
+  /*const [favoritos, setFavoritos] = useState([]);
   const [catalogo, setCatalogo] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState(null);*/
 
-  useEffect(() => {
+  /*useEffect(() => {
     setLoading(true);
     setError(null);
 
@@ -27,7 +27,7 @@ function App() {
         setError(err.message);
         setLoading(false);
       });
-  }, []);
+  }, []);*/
 
   return (
     <div class="flex flex-col h-screen justify-between">
@@ -36,12 +36,12 @@ function App() {
         <Menu />
         <div class="w-2/3 p-5">
           <AppRoutes 
-            catalogo={catalogo}
+            /*catalogo={catalogo}
             setCatalogo={setCatalogo}
             favoritos={favoritos}
             setFavoritos={setFavoritos}
             loading={loading}
-            error={error}
+            error={error}*/
           />
         </div>
       </main>

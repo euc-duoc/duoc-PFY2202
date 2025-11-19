@@ -1,11 +1,11 @@
-function TarjetaDisco({id, img, nombreGrupo, nombreDisco, stock, favoritos, setFavoritos}) {
-    let esFavorito = favoritos.includes(id);
+function TarjetaDisco({id, img, nombreGrupo, nombreDisco, stock/*, favoritos, setFavoritos*/}) {
+    let esFavorito = /*favoritos.includes(id)*/false;
 
     function cambiarEstadoFavorito() {
-        if(esFavorito)
+        /*if(esFavorito)
             setFavoritos(favoritos.filter(idCheck => idCheck != id));
         else
-            setFavoritos([...favoritos, id]);
+            setFavoritos([...favoritos, id]);*/
     }
 
     return (
