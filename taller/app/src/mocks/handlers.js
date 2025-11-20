@@ -43,10 +43,30 @@ export const handlers = [
         await delay(3000);
         return HttpResponse.json(discos);
     }),
-    graphql.query('ObtenerDiscos', async ({ variables }) => {
+    graphql.query('ObtenerDiscos', async () => {
         await delay(2000);
         return HttpResponse.json({ data: { discos } });
     }),
+    graphql.query('ObtenerDisco', async ({ variables }) => {
+        const { id } = variables;
+        await delay(2000);
+        let disco = discos.find((disco) => disco.id == id);
+        return HttpResponse.json({ data: { disco } });
+    }),
+    graphql.mutation('ModificarDisco', async ({ variables }) => {
+        const { id, stock } = variables;        
+
+        let disco = discos.find((disco) => disco.id == id);
+        await delay(1000);
+
+        if(!disco)
+            HttpResponse.json({ 
+                errors: [{ message: `No se encontró disco con id "${id}".` }]
+            });
+
+        disco.stock = stock;
+        return HttpResponse.json({ data: 1 });
+    })
     /*
     http.get("/api/procesos", async (req) => {
         await delay(2000);

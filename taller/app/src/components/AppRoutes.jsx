@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import Favoritos from '../pages/Favoritos';
 import Catalogo from '../pages/Catalogo';
+import VerDisco from '../pages/VerDisco';
 
 function AppRoutes(/*{catalogo, setCatalogo, favoritos, setFavoritos, loading, error}*/) {
   return (
@@ -21,6 +22,9 @@ function AppRoutes(/*{catalogo, setCatalogo, favoritos, setFavoritos, loading, e
           loading={loading}
           error={error}*/
         />
+      }/>
+      <Route path="/disco/:id" element={
+        <VerDisco />
       }/>
     </Routes>
   )
