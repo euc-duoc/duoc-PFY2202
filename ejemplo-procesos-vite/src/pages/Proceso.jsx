@@ -1,32 +1,88 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BotonFormulario, EntradaFormulario, HeaderSeccion } from "../components/Common";
+import { useMutation, useQuery } from "@apollo/client/react";
+import { gql } from '@apollo/client';
 
-export default function Proceso({listaProcesos, setListaProcesos}) {
+const GQL_OBTENER_PROCESO = gql`
+  query ObtenerProceso($id: Int!) {
+    proceso(id: $id) {
+      nombre
+      desc
+      tipo
+    }
+  }
+`;
+
+const GQL_MODIFICAR_PROCESO = gql`
+  mutation ModificarProceso($id: Int!, $desc: String!) {
+    setProceso(id: $id, desc: $desc) {
+      id
+      desc
+    }
+  }
+`;
+
+function Proceso() { 
   const { pathname } = useLocation();
   let id = pathname.split("/")[2];
   id = decodeURIComponent(id);
-  let proceso = listaProcesos.find((proc) => proc.id == id);
-  const navigate = useNavigate();
-  const [desc, setDesc] = useState(proceso.desc);
 
-  const cambioProceso = () => {
-    const procesosAct = listaProcesos.map(mProceso => {
-      if(mProceso.id != proceso.id)
-        return mProceso;
+  const [desc, setDesc] = useState("");
+  const { loading, error, data } = useQuery(GQL_OBTENER_PROCESO, {
+    fetchPolicy: 'network-only',
+    variables: { id }
+  });
+  const [setProceso, { mLoading, mError }] = useMutation(GQL_MODIFICAR_PROCESO, {
+    variables: { id, desc },
+    onCompleted: () => {
+      navigate('/procesos');
+    }
+  });
 
-      return {
-        ...mProceso,
-        desc: desc
+  useEffect(() => {
+    if(data)
+      setDesc(data.proceso.desc);
+  }, [data, error]);
+
+  const navigate = useNavigate(); 
+
+  function actualizarDescripcion() {
+    setProceso({ variables: { id, desc } });
+  }
+
+  if(loading) {
+    return <p>Cargando proceso...</p>
+  }
+  else if (error) {
+    return <p>Error al cargar proceso: {error.message}</p>
+  }
+  else {
+    let proceso = data.proceso;
+
+    let BotonDinamico = () => {
+      if(mLoading) {
+        return <BotonFormulario
+          label={"Actualizando..."}
+        />
       }
-    });
+      else {
+        let Boton = () => <BotonFormulario
+          label={"Actualizar descripción"}
+          onClick={actualizarDescripcion}
+        />
 
-    setListaProcesos(procesosAct);
-    navigate('/procesos')
-  };
+        if(!mError)
+          return <Boton/>;
+        else
+          return (<>
+            <Boton/>
+            <p>Error al actualizar proceso: {error.message}</p>
+          </>);
+      }
+    };
 
-  return ( 
-    <div>
+    return (<div>
       <HeaderSeccion texto={"Proceso: " + proceso.nombre} />
 
       <div className="flex flex-col">
@@ -45,10 +101,9 @@ export default function Proceso({listaProcesos, setListaProcesos}) {
         />
       </div>
       
-      <BotonFormulario
-        label={"Actualizar descripción"}
-        onClick={cambioProceso}
-      />
-    </div>
-  );
+      <BotonDinamico/>
+    </div>)
+  }
 };
+
+export default Proceso;

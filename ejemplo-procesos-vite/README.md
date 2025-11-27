@@ -1,3 +1,41 @@
+# Configuración de testing con vitest
+
+1. Instalar dependencias principales
+
+```bash
+npm install --save-dev @testing-library/react @testing-library/user-event
+npm install -D vitest
+npm install -D happy-dom
+npm install -D @vitest/coverage-v8
+```
+
+2. Configurar en package.json:
+
+```json
+"scripts": {
+    "test": "vitest",
+    "coverage": "vitest run --coverage"
+},
+```
+
+3. Configurar en vite.config.js:
+
+```javascript
+export default defineConfig({
+  // ...
+  test : {
+    environment: 'happy-dom'
+  }
+})
+```
+
+4. Crear algún test (MiComponente.test.jsx)
+
+5. Ejecutar pruebas:
+```bash
+npm run test
+```
+
 # Instalación componentes GraphQL
 
 ```bash
