@@ -1,3 +1,23 @@
+# Configuración de testing con cypress (e2e)
+
+1. Instalar framework
+
+```bash
+npm install cypress
+```
+
+2. Ejecutar tester
+
+```bash
+npx cypress open
+```
+
+3. Solo seguir las instrucciones de la interfaz para configurar.
+
+4. Crear nuevos specs de testing en carpeta [/cypress/e2e](/ejemplo-procesos-vite/cypress/e2e/), por ej.:
+
+
+
 # Configuración de testing con vitest
 
 1. Instalar dependencias principales

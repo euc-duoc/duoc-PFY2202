@@ -1,6 +1,9 @@
+import { useQuery } from '@apollo/client/react';
 import { HeaderSeccion } from '../components/Common';
 import './ListaProcesos.css'
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { GQL_OBTENER_PROCESOS } from '../App';
 
 function ItemProceso({proceso}) {
   return (
@@ -35,7 +38,18 @@ function Contenido({listaProcesos, loading}) {
   }
 }
 
-function ListaProcesos({listaProcesos, loading}) {
+function ListaProcesos() {
+  const { loading, error, data } = useQuery(GQL_OBTENER_PROCESOS, {
+    fetchPolicy: "no-cache"
+  });
+  
+  const [listaProcesos, setListaProcesos] = useState([]);
+  
+  useEffect(() => {
+    if(data)
+      setListaProcesos(data.procesos);
+  }, [data, error]);
+
   return (
     <div>
       <HeaderSeccion texto={"Procesos registrados"} />

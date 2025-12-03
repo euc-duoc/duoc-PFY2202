@@ -11,10 +11,7 @@ function AppRoutes({listaProcesos, setListaProcesos, loading}) {
     <Suspense fallback={<Loading />}>
       <Routes>
         <Route path="/procesos" element={
-          <ListaProcesos 
-            listaProcesos={listaProcesos}
-            loading={loading}
-          />
+          <ListaProcesos />
         }/>
         <Route path="/proceso/:id" element={
           <Proceso 

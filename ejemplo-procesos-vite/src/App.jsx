@@ -95,3 +95,4 @@ function App() {
 }
 
 export default App
+export { GQL_OBTENER_PROCESOS }
