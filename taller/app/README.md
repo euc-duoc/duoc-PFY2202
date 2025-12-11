@@ -1,3 +1,10 @@
+# Testing unitario
+
+npm install --save-dev @testing-library/react @testing-library/user-event
+npm install -D vitest
+npm install -D happy-dom
+npm install -D @vitest/coverage-v8
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
