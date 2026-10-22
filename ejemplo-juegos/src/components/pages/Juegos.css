@@ -1,0 +1,22 @@
+main {
+    padding: 10px;
+    margin: 5px;
+    width: 100%;
+    display: flex; 
+    flex-direction: column;
+}
+
+.subtitle{
+    font-size: x-large;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.contenido {
+    display: flex;
+    min-height: 50vh;
+}
+
+.juegos-cont {
+    display: flex;
+}
