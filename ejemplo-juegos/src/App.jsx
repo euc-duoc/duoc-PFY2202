@@ -51,7 +51,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Juegos juegos={juegos} setJuegos={setJuegos}/>}/>
         <Route path="/juegos" element={<Juegos juegos={juegos} setJuegos={setJuegos}/>}/>
-        <Route path="/juego/:id" element={<Juego juegos={juegos} />}/>
+        <Route path="/juego/:id" element={<Juego />}/>
         <Route path="/contacto" element={<Contacto/>}/>
       </Routes> }
     </Router>

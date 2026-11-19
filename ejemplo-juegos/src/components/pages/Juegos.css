@@ -19,4 +19,16 @@ main {
 
 .juegos-cont {
     display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.juegos-cont > .card {
+    flex: 0 1 220px;
+    min-width: 0;
+}
+
+.juegos-cont .card-img-top {
+    height: 180px;
+    object-fit: contain;
 }
