@@ -154,3 +154,102 @@ Con `id: 4`, deberías recibir los datos de Carcassonne. Con `id: 999`, debería
 - [MSW — Integración en el navegador](https://mswjs.io/guides/integrations/browser)
 - [MSW — Simulación de APIs GraphQL](https://mswjs.io/docs/graphql)
 - [MSW — Migración a la versión 3](https://mswjs.io/docs/migrations/2.x-to-3.x)
+
+## Semana 6 — Pruebas automatizadas con Vitest, React Testing Library y MSW
+
+El proyecto incluye una prueba unitaria de una tarjeta y pruebas de integración del catálogo y la ficha de un juego. **Vitest** ejecuta las pruebas, **React Testing Library** permite comprobar lo que se muestra en pantalla y simular interacciones, y **MSW** intercepta las peticiones REST y GraphQL durante las pruebas.
+
+### Ejecutar las pruebas
+
+Desde la carpeta `ejemplo-juegos`, instala las dependencias del repositorio y ejecuta la suite:
+
+```bash
+npm ci
+npm test
+```
+
+| Comando | Qué hace |
+| --- | --- |
+| `npm test` | Ejecuta todas las pruebas una vez. |
+| `npm run test:watch` | Vuelve a ejecutar las pruebas al guardar cambios. |
+| `npm run test:coverage` | Ejecuta la suite y genera un informe de cobertura en la terminal y en `coverage/index.html`. |
+
+### Qué comprueban las pruebas
+
+| Archivo | Comportamiento verificado |
+| --- | --- |
+| `src/components/TarjetaJuego.test.jsx` | La tarjeta enlaza a la ficha del juego y muestra **En Carrito** después de pulsar **Comprar**. |
+| `src/App.test.jsx` | El catálogo carga los juegos desde REST. Al seleccionar Carcassonne, la ficha consulta GraphQL y muestra su nombre, portada y cantidad de jugadores. |
+| `src/components/pages/Juego.test.jsx` | Al consultar un ID inexistente, la ficha muestra **Juego no encontrado.** |
+
+### Incorporar esta configuración a otro proyecto React con Vite
+
+1. Instala las dependencias de prueba:
+
+   ```bash
+   npm install -D vitest@4.1 @vitest/coverage-v8@4.1 jsdom@27 @testing-library/react @testing-library/dom @testing-library/user-event @testing-library/jest-dom
+   ```
+
+2. En `vite.config.js`, importa `defineConfig` desde `vitest/config`, conserva los plugins actuales y agrega el bloque `test`:
+
+   ```js
+   test: {
+       environment: 'jsdom',
+       environmentOptions: {
+           jsdom: { url: 'http://localhost:5173/' }
+       },
+       setupFiles: ['./src/test/setup.js'],
+       coverage: {
+           provider: 'v8',
+           include: ['src/**/*.{js,jsx}'],
+           exclude: ['src/test/**', 'src/**/*.test.{js,jsx}'],
+           reporter: ['text', 'html']
+       }
+   }
+   ```
+
+3. Crea `src/test/setup.js` para cargar los comparadores del DOM y reutilizar los handlers de MSW:
+
+   ```js
+   import '@testing-library/jest-dom/vitest'
+   import { cleanup } from '@testing-library/react'
+   import { afterAll, afterEach, beforeAll } from 'vitest'
+   import { setupServer } from 'msw/node'
+   import { handlers } from '../mocks/handlers'
+
+   const server = setupServer(...handlers)
+
+   beforeAll(() => server.listen({ onUnhandledRequest: 'error' }))
+
+   afterEach(() => {
+       cleanup()
+       server.resetHandlers()
+   })
+
+   afterAll(() => server.close())
+   ```
+
+   En desarrollo, MSW usa `setupWorker` en el navegador. En las pruebas, `setupServer` intercepta las peticiones en Node usando los mismos handlers de `src/mocks/handlers.js`. La opción `onUnhandledRequest: 'error'` permite detectar peticiones sin un mock configurado.
+
+4. Agrega estos scripts al objeto `scripts` de `package.json`:
+
+   ```json
+   "test": "vitest run",
+   "test:watch": "vitest",
+   "test:coverage": "vitest run --coverage"
+   ```
+
+### Leer el informe de cobertura
+
+Después de ejecutar `npm run test:coverage`, revisa la fila **`All files`** para ver el resultado global. En la ejecución de referencia se obtuvo:
+
+| Métrica | Cobertura |
+| --- | ---: |
+| Sentencias (`Stmts`) | 71,64 % |
+| Funciones (`Funcs`) | 73,91 % |
+| Líneas (`Lines`) | 70,76 % |
+| Ramas (`Branch`) | 57,14 % |
+
+Las tres métricas solicitadas en la actividad —sentencias, funciones y líneas— superan el 50 %. El informe HTML permite revisar las líneas pendientes por archivo. Por ejemplo, `Juego.jsx` alcanzó el 100 % de funciones, pero el 57,14 % de ramas. Esto muestra que una prueba puede ejecutar una función y dejar casos condicionales sin recorrer.
+
+**Para la entrega formativa:** este repositorio usa Vitest como alternativa en la demostración de clase. Las instrucciones de la actividad solicitan Jest y React Testing Library, junto con MSW para simular las integraciones con el backend.

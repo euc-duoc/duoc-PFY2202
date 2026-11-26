@@ -8,7 +8,7 @@ const OBTENER_JUEGO = `
             nombre
             precio
             img
-            jugadores
+            jugadoresPorJuego
         }
     }
 `
